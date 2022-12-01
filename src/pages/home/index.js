@@ -6,6 +6,7 @@ import { IoMdDoneAll } from 'react-icons/io';
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import Footer from '../../components/footer';
 
 
 function Home() {
@@ -49,7 +50,7 @@ function Home() {
 
         newTask = document.getElementById('newTaskInput').value
 
-        if(newTask.trim() === ''){
+        if (newTask.trim() === '') {
             return;
         }
 
@@ -85,16 +86,18 @@ function Home() {
         updateTasks()
     }
 
-    function changeStatusTask(name){
+    function changeStatusTask(name, status) {
         const taskList = JSON.parse(localStorage.getItem('@tasks')) || [];
 
-        //verifica se o id do filme salvo é o mesmo dde algum que já esta salvo
-        const hasTask = taskList.some((task) => task.name.toLowerCase() === newTask.toLowerCase());
-        console.log(hasTask)
-       
-
+        for (let i = 0; i < taskList.length; i++) {
+            if (taskList[i].name === name) {
+                taskList[i].status = status
+            }
+        }
+        localStorage.setItem("@tasks", JSON.stringify(taskList))
+        toast.success("Status Atualizado!")
+        updateTasks()
     }
-
 
     return (
         <div className={styles.home}>
@@ -110,7 +113,7 @@ function Home() {
                     <h4> To do</h4>
 
                     <div className={styles.new_task}>
-                        <input id="newTaskInput" />
+                        <input id="newTaskInput" placeholder='Tarefas....' />
                         <AiFillPlusCircle className={styles.plusicon} onClick={newTask} />
                     </div>
                     <div className={styles.cards}>
@@ -122,8 +125,8 @@ function Home() {
                                     {task.name}
                                 </div>
                                 <div className={styles.action_icons}>
-                                    <TbPencil className={styles.icon} onClick={() => changeStatusTask(task.name) } />
-                                    <IoMdDoneAll className={styles.icon} />
+                                    <TbPencil className={styles.icon} onClick={() => changeStatusTask(task.name, 'doing')} />
+                                    <IoMdDoneAll className={styles.icon} onClick={() => changeStatusTask(task.name, 'done')} />
                                     <TbX className={styles.icon} onClick={() => { deleteTask(task.name) }} />
                                 </div>
                             </div>
@@ -142,9 +145,9 @@ function Home() {
                                     {task.name}
                                 </div>
                                 <div className={styles.action_icons}>
-                                    <TbSubtask className={styles.icon} />
-                                    <IoMdDoneAll className={styles.icon} />
-                                    <TbX className={styles.icon} />
+                                    <TbSubtask className={styles.icon} onClick={() => changeStatusTask(task.name, 'todo')} />
+                                    <IoMdDoneAll className={styles.icon} onClick={() => changeStatusTask(task.name, 'done')} />
+                                    <TbX className={styles.icon} onClick={() => { deleteTask(task.name) }} />
                                 </div>
                             </div>
                         ))}
@@ -161,9 +164,9 @@ function Home() {
                                     {task.name}
                                 </div>
                                 <div className={styles.action_icons}>
-                                    <TbSubtask className={styles.icon} />
-                                    <TbPencil className={styles.icon} />
-                                    <TbX className={styles.icon} />
+                                    <TbSubtask className={styles.icon} onClick={() => changeStatusTask(task.name, 'todo')} />
+                                    <TbPencil className={styles.icon} onClick={() => changeStatusTask(task.name, 'doing')} />
+                                    <TbX className={styles.icon} onClick={() => { deleteTask(task.name) }} />
                                 </div>
                             </div>
                         ))}
@@ -172,6 +175,7 @@ function Home() {
                 </div>
             </div>
 
+        <Footer />
         </div>
     )
 }

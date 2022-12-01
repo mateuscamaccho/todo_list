@@ -1,0 +1,28 @@
+$light: #f0e5e5;
+
+.footer {
+    color         : $light;
+    display       : flex;
+    align-items   : center;
+    gap           : 10px;
+    letter-spacing: 1px;
+
+    a {
+        text-decoration: none;
+        color: $light;
+    }
+
+    .hearticon {
+        color: red;
+        font-size: 1.2em;
+    }
+
+    .icon {
+        color: $light;
+        font-size: 1.2em;
+    }
+
+    @media screen and (max-width: 992px) {
+        font-size: 0.8em;
+    }
+}
