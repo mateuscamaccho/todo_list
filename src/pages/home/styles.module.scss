@@ -65,6 +65,13 @@ $light: #f0e5e5;
             letter-spacing : 3px;
             text-transform : uppercase;
             margin-bottom  : 10px;
+            display        : flex;
+            align-items    : center;
+            gap            : 10px;
+
+            .icon {
+                font-size: 30px;
+            }
         }
 
         .new_task {

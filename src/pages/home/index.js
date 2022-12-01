@@ -32,9 +32,9 @@ function Home() {
         for (let i = 0; i < taskListJson.length; i++) {
             // console.log(taskListJson[i])
 
-            if (taskListJson[i].status == 'todo') {
+            if (taskListJson[i].status === 'todo') {
                 tasks1.push(taskListJson[i])
-            } else if (taskListJson[i].status == 'doing') {
+            } else if (taskListJson[i].status === 'doing') {
                 tasks2.push(taskListJson[i])
             } else {
                 tasks3.push(taskListJson[i])
@@ -48,9 +48,9 @@ function Home() {
 
     function newTask() {
 
-        newTask = document.getElementById('newTaskInput').value
+        let newTaskInput = document.getElementById('newTaskInput').value
 
-        if (newTask.trim() === '') {
+        if (newTaskInput.trim() === '') {
             return;
         }
 
@@ -58,7 +58,7 @@ function Home() {
         const taskList = JSON.parse(localStorage.getItem('@tasks')) || [];
 
         //verifica se o id do filme salvo é o mesmo dde algum que já esta salvo
-        const hasTask = taskList.some((task) => task.name.toLowerCase() === newTask.toLowerCase());
+        const hasTask = taskList.some((task) => task.name.toLowerCase() === newTaskInput.toLowerCase());
         //se for entra aqui e para a execução
         if (hasTask) {
             toast.warn("Essa tarefa já existe!")
@@ -66,7 +66,7 @@ function Home() {
         }
 
         //se não coloca o array em filmesalvos, transforma em string com o stringify e adiciona ao localstorage
-        taskList.push({ name: newTask.trim(), status: 'todo' })
+        taskList.push({ name: newTaskInput.trim(), status: 'todo' })
         localStorage.setItem("@tasks", JSON.stringify(taskList))
         toast.success("Tarefa criada!")
         updateTasks()
@@ -110,7 +110,10 @@ function Home() {
 
             <div className={styles.container}>
                 <div className={styles.column}>
-                    <h4> To do</h4>
+                    <h4>
+                        <TbSubtask className={styles.icon} />
+                        To do
+                    </h4>
 
                     <div className={styles.new_task}>
                         <input id="newTaskInput" placeholder='Tarefas....' />
@@ -135,7 +138,10 @@ function Home() {
                     </div>
                 </div>
                 <div className={styles.column}>
-                    <h4>Doing</h4>
+                    <h4>
+                        <TbPencil className={styles.icon} />
+                        Doing
+                    </h4>
                     <div className={styles.cards}>
 
                         {tasksDoing.map(task => (
@@ -154,7 +160,10 @@ function Home() {
                     </div>
                 </div>
                 <div className={styles.column}>
-                    <h4> Done</h4>
+                    <h4>
+                        <IoMdDoneAll className={styles.icon} />
+                        Done
+                    </h4>
                     <div className={styles.cards}>
 
                         {tasksDone.map(task => (
@@ -175,7 +184,7 @@ function Home() {
                 </div>
             </div>
 
-        <Footer />
+            <Footer />
         </div>
     )
 }
