@@ -7,7 +7,7 @@ function Erro() {
         <div className={styles.erro}>
             <h2>Error 404</h2>
             Ops, acho que essa pagina não existe!!
-            <Link to="/">Ver todos os filmes</Link>
+            <Link to="/">Voltar para a página principal</Link>
         </div>
     )
 }

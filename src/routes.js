@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Footer from './components/footer';
 import Erro from './pages/404';
 import Home from './pages/home';
 
@@ -13,6 +12,8 @@ function RoutesApp() {
             <Routes>
                 <Route path="" element={<Home />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/todo_list" element={<Home />} />
+                <Route path="/todo_list/" element={<Home />} />
 
 
                 <Route path="*" element={<Erro />} />
