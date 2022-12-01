@@ -140,7 +140,7 @@ function Home() {
                 <div className={styles.column}>
                     <h4>
                         <TbPencil className={styles.icon} />
-                        Doing
+                        In Progress
                     </h4>
                     <div className={styles.cards}>
 
