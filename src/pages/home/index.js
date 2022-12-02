@@ -14,6 +14,7 @@ function Home() {
     const [tasksTodo, setTasksTodo] = useState([])
     const [tasksDoing, setTasksDoing] = useState([])
     const [tasksDone, setTasksDone] = useState([])
+    const [newTask, setNewTask] = useState([])
 
     useEffect(() => {
         updateTasks()
@@ -46,11 +47,10 @@ function Home() {
         setTasksDone(tasks3)
     }
 
-    function newTask() {
+    function addNewTask() {
 
-        let newTaskInput = document.getElementById('newTaskInput').value
 
-        if (newTaskInput.trim() === '') {
+        if (newTask.trim() === '') {
             return;
         }
 
@@ -58,7 +58,7 @@ function Home() {
         const taskList = JSON.parse(localStorage.getItem('@tasks')) || [];
 
         //verifica se o id do filme salvo é o mesmo dde algum que já esta salvo
-        const hasTask = taskList.some((task) => task.name.toLowerCase() === newTaskInput.toLowerCase());
+        const hasTask = taskList.some((task) => task.name.toLowerCase() === newTask.toLowerCase());
         //se for entra aqui e para a execução
         if (hasTask) {
             toast.warn("Essa tarefa já existe!")
@@ -66,11 +66,11 @@ function Home() {
         }
 
         //se não coloca o array em filmesalvos, transforma em string com o stringify e adiciona ao localstorage
-        taskList.push({ name: newTaskInput.trim(), status: 'todo' })
+        taskList.push({ name: newTask.trim(), status: 'todo' })
         localStorage.setItem("@tasks", JSON.stringify(taskList))
         toast.success("Tarefa criada!")
         updateTasks()
-        document.getElementById('newTaskInput').value = ''
+        setNewTask('')
     }
 
 
@@ -116,8 +116,17 @@ function Home() {
                     </h4>
 
                     <div className={styles.new_task}>
-                        <input id="newTaskInput" placeholder='Tarefas....' />
-                        <AiFillPlusCircle className={styles.plusicon} onClick={newTask} />
+                        <input id="newTaskInput"
+                            placeholder='Tarefas....'
+                            value={newTask}
+                            onChange={(e) => { setNewTask(e.target.value) }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    addNewTask()
+                                }
+                            }}
+                        />
+                        <AiFillPlusCircle className={styles.plusicon} onClick={addNewTask} />
                     </div>
                     <div className={styles.cards}>
 
@@ -140,7 +149,7 @@ function Home() {
                 <div className={styles.column}>
                     <h4>
                         <TbPencil className={styles.icon} />
-                        In Progress
+                        Doing
                     </h4>
                     <div className={styles.cards}>
 

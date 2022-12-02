@@ -8,7 +8,8 @@ $light: #f0e5e5;
     letter-spacing: 3px;
 
     a {
-        text-decoration: none;
+        text-decoration:none ;
+        // outline: 10px;
         color: $light;
     }
 
@@ -19,7 +20,7 @@ $light: #f0e5e5;
 
     .icon {
         color: $light;
-        font-size: 1.2em;
+        font-size: 20px;
     }
 
     @media screen and (max-width: 992px) {

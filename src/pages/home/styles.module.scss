@@ -68,10 +68,19 @@ $light: #f0e5e5;
             display        : flex;
             align-items    : center;
             gap            : 10px;
-            text-align: center;
+            text-align     : center;
 
             .icon {
                 font-size: 30px;
+
+                @media screen and (max-width: 992px) {
+                    font-size: 20px;
+                }
+            }
+
+
+            @media screen and (max-width: 992px) {
+                font-size: 1em;
             }
         }
 
@@ -108,6 +117,10 @@ $light: #f0e5e5;
                 &:active {
                     transform: scale(0.9);
                 }
+            }
+
+            @media screen and (max-width: 992px) {
+                gap: 3px
             }
         }
 
@@ -191,7 +204,7 @@ $light: #f0e5e5;
                     @media screen and (max-width: 992px) {
                         flex-direction: row;
                         padding-right : 0px;
-                        gap: 10px;
+                        gap           : 10px;
                     }
                 }
 
