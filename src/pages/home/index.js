@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { TbSubtask, TbPencil, TbX } from 'react-icons/tb';
 import { IoMdDoneAll } from 'react-icons/io';
 
@@ -11,10 +11,14 @@ import Footer from '../../components/footer';
 
 function Home() {
 
-    const [tasksTodo, setTasksTodo] = useState([])
-    const [tasksDoing, setTasksDoing] = useState([])
-    const [tasksDone, setTasksDone] = useState([])
-    const [newTask, setNewTask] = useState([])
+    const [tasksTodo, setTasksTodo] = useState([]);
+    const [tasksDoing, setTasksDoing] = useState([]);
+    const [tasksDone, setTasksDone] = useState([]);
+    const [newTask, setNewTask] = useState([]);
+
+    const [column1, setColumn1] = useState('to do');
+    const [column2, setColumn2] = useState('doing');
+    const [column3, setColumn3] = useState('done')
 
     useEffect(() => {
         updateTasks()
@@ -112,7 +116,7 @@ function Home() {
                 <div className={styles.column}>
                     <h4>
                         <TbSubtask className={styles.icon} />
-                        To do
+                        {column1}
                     </h4>
 
                     <div className={styles.new_task}>
@@ -126,7 +130,9 @@ function Home() {
                                 }
                             }}
                         />
-                        <AiFillPlusCircle className={styles.plusicon} onClick={addNewTask} />
+                        <div className={styles.containericon} onClick={addNewTask}>
+                            <AiOutlinePlus className={styles.plusicon} />
+                        </div>
                     </div>
                     <div className={styles.cards}>
 
@@ -149,7 +155,7 @@ function Home() {
                 <div className={styles.column}>
                     <h4>
                         <TbPencil className={styles.icon} />
-                        Doing
+                        {column2}
                     </h4>
                     <div className={styles.cards}>
 
@@ -171,7 +177,7 @@ function Home() {
                 <div className={styles.column}>
                     <h4>
                         <IoMdDoneAll className={styles.icon} />
-                        Done
+                        {column3}
                     </h4>
                     <div className={styles.cards}>
 
