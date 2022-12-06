@@ -16,14 +16,14 @@ function Home() {
     const [tasksDone, setTasksDone] = useState([]);
     const [newTask, setNewTask] = useState([]);
 
-    const [column1, setColumn1] = useState('to do');
-    const [column2, setColumn2] = useState('doing');
-    const [column3, setColumn3] = useState('done')
+    const [column1, setColumn1] = useState();
+    const [column2, setColumn2] = useState();
+    const [column3, setColumn3] = useState();
 
     useEffect(() => {
         updateTasks()
+        updateColumnDesc()
     }, [])
-
 
     function updateTasks() {
         const taskList = localStorage.getItem('@tasks');
@@ -103,11 +103,47 @@ function Home() {
         updateTasks()
     }
 
+    function updateColumnDesc() {
+        let _columns = JSON.parse(localStorage.getItem("@colunas")) || [];
+
+        if (_columns == '') {
+            setColumn1('to do')
+            setColumn2('doing')
+            setColumn3('done')
+
+            localStorage.setItem("@colunas", JSON.stringify({ coluna1: "to do", coluna2: "doing", coluna3: "done" }))
+        } else {
+            setColumn1(_columns.coluna1)
+            setColumn2(_columns.coluna2)
+            setColumn3(_columns.coluna3)
+        }
+    }
+
+    function changeColumnDesc(x) {
+        let newDesc = prompt("Digite o novo nome da coluna " + x)
+        let desc1 = column1;
+        let desc2 = column2;
+        let desc3 = column3;
+
+        x === 1 ? desc1 = newDesc : x === 2 ? desc2 = newDesc : x === 3 ? desc3 = newDesc : console.log('não foi possivel')
+
+        localStorage.setItem("@colunas", JSON.stringify({ coluna1: desc1, coluna2: desc2, coluna3: desc3 }))
+
+        updateColumnDesc()
+    }
+
+    function resetPage() {
+        localStorage.clear()
+        updateColumnDesc()
+        updateTasks()
+    }
+
     return (
         <div className={styles.home}>
-            <div>
+            <div className={styles.cabecalho}>
                 <h1>To Do List </h1>
                 <h5>* Esse App usa localStorage, portanto ao mudar de navegador ou limpar os dados armazenados no navegador as tarefas serão perdidas!</h5>
+                <h5 className={styles.reset} onClick={() => { resetPage() }}>Clique aqui para resetar a página (voltará ao padrão)</h5>
 
             </div>
 
@@ -117,6 +153,7 @@ function Home() {
                     <h4>
                         <TbSubtask className={styles.icon} />
                         {column1}
+                        <span className={styles.editar} onClick={() => { changeColumnDesc(1) }}> Editar </span>
                     </h4>
 
                     <div className={styles.new_task}>
@@ -156,6 +193,7 @@ function Home() {
                     <h4>
                         <TbPencil className={styles.icon} />
                         {column2}
+                        <span className={styles.editar} onClick={() => { changeColumnDesc(2) }}> Editar </span>
                     </h4>
                     <div className={styles.cards}>
 
@@ -178,6 +216,7 @@ function Home() {
                     <h4>
                         <IoMdDoneAll className={styles.icon} />
                         {column3}
+                        <span className={styles.editar} onClick={() => { changeColumnDesc(3) }}> Editar </span>
                     </h4>
                     <div className={styles.cards}>
 

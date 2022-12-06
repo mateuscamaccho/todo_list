@@ -15,7 +15,14 @@ $light: #f0e5e5;
     align-items     : center;
     gap             : 30px;
 
-    div h1 {
+    div.cabecalho {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+        flex-direction : column;
+    }
+
+    div.cabecalho h1 {
         color          : $light;
         display        : flex;
         align-items    : center;
@@ -25,10 +32,16 @@ $light: #f0e5e5;
         margin-top     : 10px;
     }
 
-    div h5 {
+    div.cabecalho h5 {
         color         : $light;
         letter-spacing: 1px;
         text-align    : justify;
+    }
+
+    div.cabecalho h5.reset {
+        text-decoration: underline;
+        margin-top     : 10px;
+        cursor         : pointer;
     }
 
 }
@@ -69,6 +82,7 @@ $light: #f0e5e5;
             align-items    : center;
             gap            : 10px;
             text-align     : center;
+            flex-wrap      : wrap;
 
             .icon {
                 font-size: 30px;
@@ -81,6 +95,13 @@ $light: #f0e5e5;
 
             @media screen and (max-width: 992px) {
                 font-size: 1em;
+            }
+
+            span.editar {
+                letter-spacing : 0;
+                text-decoration: underline;
+                font-size      : .5em;
+                cursor         : pointer;
             }
         }
 
